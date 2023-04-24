@@ -33,7 +33,7 @@ class Main {
         int[] lottoNumbers = new int[3]; //Storing random lotto numbers generated
         String lottoNumbersString = "";
         for (int i = 0; i < 3; i++) {
-            lottoNumbers[i] = rand.nextInt(1, 4);
+            lottoNumbers[i] = rand.nextInt(1, 25);
             lottoNumbersString += lottoNumbers[i] + " ";
         }
         System.out.println("Winning Lotto numbers are: " +lottoNumbersString);
