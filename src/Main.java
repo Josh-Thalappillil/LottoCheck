@@ -14,15 +14,21 @@ import java.util.Scanner;
 // and how many correct guesses occurred in the draw.
 // The method should also notify of any error e.g., if the number picked by the user fall outside the prescribed range.
 class Main {
+    static int NUMBERS_DRAWN = 3;
     public static void main(String[] args) {
         Random rand = new Random();
         Scanner scan = new Scanner(System.in);
+        
 
         System.out.println("Please enter three numbers between 1 and 24.");
         System.out.println("Your guesses are:");
-        int[] userNumbers = new int[3]; //store users input
+        int[] userNumbers = new int[NUMBERS_DRAWN]; //store users input
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < NUMBERS_DRAWN; i++) {
+            if (!scan.hasNextInt()){
+                System.out.println("Error! Please enter a number between 1 and 24");
+                return;
+            }
             userNumbers[i] = scan.nextInt();
             if (userNumbers[i] < 1 || userNumbers[i] > 24) {
                 System.out.println("Error! You must choose a number between 1 and 24.");
@@ -30,17 +36,17 @@ class Main {
             }
         }
 
-        int[] lottoNumbers = new int[3]; //Storing random lotto numbers generated
-        String lottoNumbersString = "";
-        for (int i = 0; i < 3; i++) {
+        int[] lottoNumbers = new int[NUMBERS_DRAWN]; //Storing random lotto numbers generated
+
+
+        for (int i = 0; i < NUMBERS_DRAWN; i++) {
             lottoNumbers[i] = rand.nextInt(1, 25);
-            lottoNumbersString += lottoNumbers[i] + " ";
         }
-        System.out.println("Winning Lotto numbers are: " +lottoNumbersString);
+        System.out.println("Winning Numbers: " + Arrays.toString(lottoNumbers));
 
         int correctGuesses = 0;
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < NUMBERS_DRAWN; i++) {
             if (Arrays.binarySearch(lottoNumbers, userNumbers[i]) >= 0) {
                 System.out.println("The number " + userNumbers[i] + " was a correct guess!");
                 correctGuesses++;
