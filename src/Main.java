@@ -1,3 +1,4 @@
+import javax.lang.model.type.ArrayType;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -17,32 +18,33 @@ class Main {
         Random rand = new Random();
         Scanner scan = new Scanner(System.in);
 
+        System.out.println("Please enter three numbers between 1 and 24.");
+        System.out.println("Your guesses are:");
         int[] userNumbers = new int[3]; //store users input
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             userNumbers[i] = scan.nextInt();
-            if (userNumbers[i] < 1 || userNumbers[i] > 24){
-                System.out.println("Error! You must choose a number between 1 and 24."); return;
+            if (userNumbers[i] < 1 || userNumbers[i] > 24) {
+                System.out.println("Error! You must choose a number between 1 and 24.");
+                return;
             }
         }
 
         int[] lottoNumbers = new int[3]; //Storing random lotto numbers generated
-
-        for (int i = 0; i < 3; i++){
-            lottoNumbers[i] = rand.nextInt(4);
-            System.out.println(lottoNumbers[i]);
+        String lottoNumbersString = "";
+        for (int i = 0; i < 3; i++) {
+            lottoNumbers[i] = rand.nextInt(1, 4);
+            lottoNumbersString += lottoNumbers[i] + " ";
         }
-
-        Arrays.sort(userNumbers);
-        Arrays.sort(lottoNumbers);
+        System.out.println("Winning Lotto numbers are: " +lottoNumbersString);
 
         int correctGuesses = 0;
 
-        for (int i = 0; i < 3; i++){
-            if (userNumbers[i] == lottoNumbers[i]){
-                System.out.println("The number " + userNumbers[i] + " was a correct guess.");
+        for (int i = 0; i < 3; i++) {
+            if (Arrays.binarySearch(lottoNumbers, userNumbers[i]) >= 0) {
+                System.out.println("The number " + userNumbers[i] + " was a correct guess!");
                 correctGuesses++;
-            }
+                }
         }
         System.out.println("The number of correct guesses was: " + correctGuesses);
     }
