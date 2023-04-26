@@ -12,45 +12,10 @@ import java.util.*;
 // and how many correct guesses occurred in the draw.
 // The method should also notify of any error e.g., if the number picked by the user fall outside the prescribed range.
 class Main {
-    static int NUMBERS_DRAWN = 3;
+
+    public static int NUMBERS_DRAWN = 3;
     public static void main(String[] args) {
-
-        Scanner scan = new Scanner(System.in);
-
-        System.out.println("Please enter three numbers between 1 and 24.");
-        System.out.println("Your guesses are:");
-        int[] userNumbers = new int[NUMBERS_DRAWN]; //store users input
-
-        for (int i = 0; i < NUMBERS_DRAWN; i++) {
-            if (!scan.hasNextInt()){
-                System.out.println("Error! Please enter a number between 1 and 24");
-                return;
-            }
-            userNumbers[i] = scan.nextInt();
-            if (userNumbers[i] < 1 || userNumbers[i] > 24) {
-                System.out.println("Error! You must choose a number between 1 and 24.");
-                return;
-            }
-        }
-
-
-        Set<Integer> lottoNumbers = new HashSet<>();
-        Random rand = new Random();
-
-        while (lottoNumbers.size() < NUMBERS_DRAWN){
-            lottoNumbers.add(rand.nextInt(1, 25));
-        }
-        System.out.println("Winning Numbers: " + lottoNumbers);
-
-
-        int correctGuesses = 0;
-
-        for (int i = 0; i < NUMBERS_DRAWN; i++) {
-            if (lottoNumbers.contains(userNumbers[i])) {
-                System.out.println("The number " + userNumbers[i] + " was a correct guess!");
-                correctGuesses++;
-                }
-        }
-        System.out.println("The number of correct guesses was: " + correctGuesses);
+        Engine engine = new Engine();
+        engine.RunLotto();
     }
 }
