@@ -1,7 +1,5 @@
 import javax.lang.model.type.ArrayType;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 // Lotto Checker
 // Lotto numbers are drawn in the range of between 1 and 24
@@ -16,9 +14,8 @@ import java.util.Scanner;
 class Main {
     static int NUMBERS_DRAWN = 3;
     public static void main(String[] args) {
-        Random rand = new Random();
+
         Scanner scan = new Scanner(System.in);
-        
 
         System.out.println("Please enter three numbers between 1 and 24.");
         System.out.println("Your guesses are:");
@@ -36,18 +33,20 @@ class Main {
             }
         }
 
-        int[] lottoNumbers = new int[NUMBERS_DRAWN]; //Storing random lotto numbers generated
 
+        Set<Integer> lottoNumbers = new HashSet<>();
+        Random rand = new Random();
 
-        for (int i = 0; i < NUMBERS_DRAWN; i++) {
-            lottoNumbers[i] = rand.nextInt(1, 25);
+        while (lottoNumbers.size() < NUMBERS_DRAWN){
+            lottoNumbers.add(rand.nextInt(1, 25));
         }
-        System.out.println("Winning Numbers: " + Arrays.toString(lottoNumbers));
+        System.out.println("Winning Numbers: " + lottoNumbers);
+
 
         int correctGuesses = 0;
 
         for (int i = 0; i < NUMBERS_DRAWN; i++) {
-            if (Arrays.binarySearch(lottoNumbers, userNumbers[i]) >= 0) {
+            if (lottoNumbers.contains(userNumbers[i])) {
                 System.out.println("The number " + userNumbers[i] + " was a correct guess!");
                 correctGuesses++;
                 }
